@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Método Simplex</title>
+
+    <script src="main.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>Método Simplex JavaScript</h1>
+    </header>
+
+    <form id="form" name="form" method="post" action="" autocomplete="off">
+        <div>
+            <label for="objetivo">Objetivo da função: </label>
+            <select name="objetivo" id="objetivo">
+                <option value="max">Maximizar</option>
+                <option value="min">Minimizar</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="variaveis">Quantidade de variáveis: </label>
+            <input name="variaveis" type="number" id="variaveis" value="" onClick="this.select();" required>
+        </div>
+
+        <div>
+            <label for="restricoes">Restrições: </label>
+            <input name="restricoes" type="number" id="restricoes" value="" onClick="this.select();" aria-required="true">
+        </div>
+
+        <div>
+            <input type="button" name="button" id="button" value="Confirmar" onclick="geraMatrizDeInputs()">
+        </div>
+
+        <div id="containerDeAtencao"></div>
+        <div id="fo"></div>
+        <div id="matriz"></div>
+        <div id="zeros"></div>
+        <div id="btnResolver"></div>
+        <div id="tabela"></div>
+        <div id="btnNovoProblema"></div>
+    </form>
+
+    <footer>
+        Método Simplex por Mateus Abreu.
+    </footer>
+</body>
+
+</html>
