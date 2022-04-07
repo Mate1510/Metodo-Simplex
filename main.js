@@ -23,7 +23,7 @@ function geraMatrizDeInputs() {
         '" id="' +
         "X" +
         i +
-        '" onClick="this.select();" required="required" style="text-align:right;"> X' +
+        '" onClick="this.select();" required="required" style="text-align:center;"> X' +
         i;
 
       zeros += "X" + i;
@@ -39,7 +39,7 @@ function geraMatrizDeInputs() {
     for (i = 1; i <= linhas; i++) {
       for (j = 1; j <= colunas; j++) {
         aux +=
-          '<input type="text" value="" name="' +
+          '<input type="number" value="" name="' +
           i +
           "X" +
           j +
@@ -47,7 +47,7 @@ function geraMatrizDeInputs() {
           i +
           "X" +
           j +
-          '" onClick="this.select();" required="required" style="text-align: right;"> X' +
+          '" onClick="this.select();" style="text-align: center;"> X' +
           j;
 
         if (j != colunas) {
@@ -57,20 +57,21 @@ function geraMatrizDeInputs() {
 
       matriz +=
         aux +
-        ' ≤  <input type="text" value="0" name="' +
+        ' ≤  <input type="number" value="" name="' +
         "R" +
         i +
         '" id="' +
         "R" +
         i +
-        '" onClick="this.select();" required="required"  /><br /><br />';
+        '" onClick="this.select();"><br><br>';
       aux = "";
     }
 
     document.getElementById("matriz").innerHTML = "<p>Restrições:</p>" + matriz;
     zeros += " ≥ 0";
     document.getElementById("zeros").innerHTML = zeros;
-    document.getElementById("btnResolver").innerHTML = '<input type="button" value="Resolver" id="btResolver" onClick="resolver()">';
+    document.getElementById("btnResolver").innerHTML =
+      '<input type="button" value="Resolver" id="btResolver" onClick="resolver()">';
     document.getElementById("variaveis").readOnly = true;
     document.getElementById("restricoes").readOnly = true;
   }
@@ -102,14 +103,13 @@ function geraMatriz() {
   }
 
   for (i = 1; i <= restricoes; i++) {
-    matriz[0][i + variaveis] = "S" + i;
+    matriz[0][i + variaveis] = "F" + i;
   }
 
   for (i = 1; i <= restricoes; i++) {
     for (j = 1; j <= variaveis; j++) {
       matriz[i][j] = document.getElementById(i + "X" + j).value;
     }
-
     matriz[i][variaveis + restricoes + 1] = document.getElementById(
       "R" + i
     ).value;
@@ -131,13 +131,17 @@ function imprimeTabela() {
   var restricoes = parseInt(document.getElementById("restricoes").value);
   var linhas = restricoes + 2;
   var colunas = variaveis + restricoes + 2;
-  var tabela = '<table>' + '<thead>Tabela </thead>' + (cont+1) + ': ';
+  var tabela = "<table>" + "<thead>Tabela </thead>" + (cont + 1) + ": ";
 
   for (i = 0; i < linhas; i++) {
     tabela += "<tr>";
 
     for (j = 0; j < colunas; j++) {
-      tabela += "<td>" + matriz[i][j] + "</td>";
+      if (i == 0 || Number.isInteger(matriz[i][j])) {
+        tabela += "<td>" + matriz[i][j] + "</td>";
+      } else {
+        tabela += "<td>" + parseFloat(matriz[i][j]).toFixed(2) + "</td>";
+      }
     }
 
     tabela += "</tr>";
@@ -160,7 +164,6 @@ function final() {
         return false;
       }
     }
-
     return true;
   }
 
@@ -170,7 +173,6 @@ function final() {
         return false;
       }
     }
-
     return true;
   }
 }
@@ -246,7 +248,7 @@ function resolver() {
   var restricoes = parseInt(document.getElementById("restricoes").value);
   var ncolunas = variaveis + restricoes + 2;
   var itemAux = 0;
-  var resposta = "<p>Solução: </p>";
+  var resposta = '<p>Solução: </p>';
 
   while (final() == false) {
     encontraPivoJ();
@@ -272,14 +274,17 @@ function resolver() {
         resposta +=
           matriz[0][j] +
           " = " +
-          matriz[i][variaveis + restricoes + 1] +
-          " <br>";
+          matriz[i][variaveis + restricoes + 1].toFixed(2); +
+          '<br>';
       }
     }
   }
 
-  resposta += "Z = " + matriz[restricoes + 1][variaveis + restricoes + 1];
+  resposta +=
+    "Z = " +
+    matriz[restricoes + 1][variaveis + restricoes + 1].toFixed(2);
 
-  document.getElementById("tabela").innerHTML += resposta;
-  document.getElementById("btnNovoProblema").innerHTML = '<input type="button" value="Novo problema" onClick="location.reload()">';
+  document.getElementById("resposta").innerHTML += resposta;
+  document.getElementById("btnNovoProblema").innerHTML =
+    '<input type="button" value="Novo problema" onClick="location.reload()">';
 }

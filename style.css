@@ -50,11 +50,15 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 input[type="number"] {
     -moz-appearance: textfield;
+    width: 50px;
+    text-align: center;
+    background-color: #00000000;
+    border-radius: 4px;
+    border: 1px solid #E64E4E;
 }
 
 table {
     text-align: center;
-    border-radius: 4px;
     border: 1px solid #000;
     border-collapse: collapse;
     margin-bottom: 30px;
@@ -72,6 +76,27 @@ tr:first-child {
 
 table thead {
     margin-top: 10px;
+}
+
+#resposta {
+    border-radius: 4px;
+    padding: 10px;
+    align-items: center;
+    display: grid;
+    grid-template-rows: 3;
+    gap: 4px;
+}
+
+#resposta #resposta1 {
+    grid: 1;
+}
+
+#resposta #resposta2 {
+    grid: 2;
+}
+
+#resposta #resposta3 {
+    grid: 3;
 }
 
 footer {
