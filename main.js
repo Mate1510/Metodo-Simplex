@@ -248,7 +248,7 @@ function resolver() {
   var restricoes = parseInt(document.getElementById("restricoes").value);
   var ncolunas = variaveis + restricoes + 2;
   var itemAux = 0;
-  var resposta = '<p>Solução: </p>';
+  var resposta = "<p>Solução: </p>";
 
   while (final() == false) {
     encontraPivoJ();
@@ -272,17 +272,16 @@ function resolver() {
     for (i = 1; i <= restricoes; i++) {
       if (matriz[i][j] == 1) {
         resposta +=
+          '<br>' +
           matriz[0][j] +
           " = " +
-          matriz[i][variaveis + restricoes + 1].toFixed(2); +
-          '<br>';
+          matriz[i][variaveis + restricoes + 1].toFixed(2);
       }
     }
   }
 
   resposta +=
-    "Z = " +
-    matriz[restricoes + 1][variaveis + restricoes + 1].toFixed(2);
+    "<br>Z = " + matriz[restricoes + 1][variaveis + restricoes + 1].toFixed(2);
 
   document.getElementById("resposta").innerHTML += resposta;
   document.getElementById("btnNovoProblema").innerHTML =
